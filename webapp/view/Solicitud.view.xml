@@ -1,0 +1,461 @@
+<mvc:View
+    controllerName="creacionflujocecos.controller.Solicitud"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <IconTabBar
+                id="idIconTabBar"
+                expandable="false"
+                selectedKey="datos">
+                <items>
+                    <IconTabFilter text="Datos básicos" key="datos">
+                        <VBox>
+                            <f:SimpleForm id="SimpleFormChange354"
+                                editable="true"
+                                layout="ResponsiveGridLayout"
+                                title="Proceso"
+                                labelSpanXL="3"
+                                labelSpanL="3"
+                                labelSpanM="3"
+                                labelSpanS="12"
+                                adjustLabelSpan="false"
+                                emptySpanXL="4"
+                                emptySpanL="4"
+                                emptySpanM="4"
+                                emptySpanS="0"
+                                columnsXL="1"
+                                columnsL="1"
+                                columnsM="1"
+                                singleContainerFullSize="false">
+                                <f:content>
+                                    <Label text="Proceso" />
+                                    <Select id="slctProceso"
+                                        items="{Proceso>/}"
+                                        change="onProcesoChanged">
+                                        <items>
+                                            <core:Item text="{Proceso>Descripcion} - {Proceso>Valor}"
+                                                key="{Proceso>Valor}" />
+                                        </items>
+                                    </Select>
+
+                                    <Label text="Usuario solicitante" />
+                                    <Input id="inptSolicitante" enabled="false" />
+
+                                    <Label text="Consecutivo" />
+                                    <Input id="inptConsecutivo" enabled="false" />
+
+                                    <Label id="inptFlujo" text="ID Flujo" />
+                                    <Select id="slctFlujo"
+                                        items="{Flujo>/}">
+                                        <items>
+                                            <core:Item text="{Flujo>Descripcion} - {Flujo>Valor}"
+                                                key="{Flujo>Valor}" />
+                                        </items>
+                                    </Select>
+
+                                </f:content>
+                            </f:SimpleForm>
+                        </VBox>
+
+                        <Panel width="auto" class="sapUiSmallMarginTop">
+                            <Table
+                                id="tableCentros"
+                                items="{Centro>/}"
+                                mode="MultiSelect"
+                                noDataText="No hay registros."
+                                contextualWidth="500px"
+                                popinLayout="GridSmall">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <Title id="tableTitle" level="H2" />
+                                        <ToolbarSpacer />
+                                        <Button icon="sap-icon://add" text="Agregar registro"
+                                            press="onOpenAgregarRegistro">
+                                            <customData>
+                                                <core:CustomData
+                                                    key="action"
+                                                    value="crear" />
+                                            </customData>
+                                        </Button>
+                                        <Button icon="sap-icon://upload" text="Cargar excel"
+                                            press="onOpenCargaExcel">
+                                            <customData>
+                                                <core:CustomData
+                                                    key="tipoCarga"
+                                                    value="centros" />
+                                            </customData>
+                                        </Button>
+                                        <Button icon="sap-icon://download"
+                                            text="Descargar plantilla" press="onDescargarPlantilla">
+                                            <customData>
+                                                <core:CustomData
+                                                    key="tipoPlantilla"
+                                                    value="centros" />
+                                            </customData>
+                                        </Button>
+                                        <Button icon="sap-icon://delete" text="Eliminar"
+                                            press="onEliminar" />
+                                    </OverflowToolbar>
+                                </headerToolbar>
+
+                                <columns>
+                                    <Column id="colIdCeco">
+                                        <Text id="txtColIdCeco" />
+                                    </Column>
+
+                                    <Column id="colDescripcion">
+                                        <Text text="Descripción" />
+                                    </Column>
+
+                                    <Column id="colUsuario">
+                                        <Text text="Usuario" />
+                                    </Column>
+
+                                    <Column id="colResponsable">
+                                        <Text text="Responsable" />
+                                    </Column>
+
+                                    <Column id="colDepartamento">
+                                        <Text text="Departamento" />
+                                    </Column>
+
+                                    <Column id="colSociedad">
+                                        <Text text="Sociedad" />
+                                    </Column>
+
+                                    <Column id="colJerarquia">
+                                        <Text text="Area Jerarquia" />
+                                    </Column>
+
+                                    <Column
+                                        id="colClase"
+                                        demandPopin="true"
+                                        minScreenWidth="Tablet"
+                                        popinDisplay="Inline">
+                                        <Text text="Clase CeCo" />
+                                    </Column>
+
+                                    <Column
+                                        id="colFuncional"
+                                        demandPopin="true"
+                                        minScreenWidth="Tablet"
+                                        popinDisplay="Inline">
+                                        <Text text="Area Funcional" />
+                                    </Column>
+
+                                    <Column
+                                        id="colMoneda"
+                                        demandPopin="true"
+                                        minScreenWidth="Tablet"
+                                        popinDisplay="Inline">
+                                        <Text text="Moneda" />
+                                    </Column>
+
+                                    <Column
+                                        id="colCebe"
+                                        demandPopin="true"
+                                        minScreenWidth="Tablet"
+                                        popinDisplay="Inline">
+                                        <header>
+                                            <Text text="Centro de Beneficio" />
+                                        </header>
+                                    </Column>
+
+                                    <Column
+                                        id="colDerivaCebe"
+                                        demandPopin="true"
+                                        minScreenWidth="Tablet"
+                                        popinDisplay="Inline">
+                                        <header>
+                                            <Text text="Derivar a CeGe" />
+                                        </header>
+                                    </Column>
+
+                                    <Column
+                                        hAlign="Center">
+                                        <Text text="" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle">
+                                        <cells>
+                                            <Text text="{Centro>centro}" />
+                                            <Text text="{Centro>denominacion}" />
+                                            <Text text="{Centro>usuario}" />
+                                            <Text text="{Centro>responsable}" />
+                                            <Text text="{Centro>departamento}" />
+                                            <Text text="{Centro>sociedad}" />
+                                            <Text text="{Centro>areaJerarquia}" />
+                                            <Text text="{Centro>claseCeCo}" />
+                                            <Text text="{Centro>areaFuncional}" />
+                                            <Text text="{Centro>moneda}" />
+                                            <Text text="{Centro>cEBE}" />
+                                            <Text text="{Centro>derivarACeGe}" />
+                                            <Button icon="sap-icon://edit" press="onOpenAgregarRegistro">
+                                                <customData>
+                                                    <core:CustomData
+                                                        key="action"
+                                                        value="editar" />
+                                                </customData>
+                                            </Button>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </Panel>
+                    </IconTabFilter>
+
+
+                    <IconTabFilter text="Direcciones" key="direcciones">
+                        <Panel width="auto" class="sapUiSmallMarginTop">
+                            <Table
+                                id="tableDirecciones"
+                                items="{Direccion>/}"
+                                mode="MultiSelect"
+                                noDataText="No hay registros.">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <Title text="Direcciones" level="H2" />
+                                        <ToolbarSpacer />
+                                        <Button icon="sap-icon://add" text="Agregar dirección"
+                                            press="onOpenAgregarDireccion">
+                                            <customData>
+                                                <core:CustomData
+                                                    key="tipoCarga"
+                                                    value="direcciones" />
+                                            </customData>
+                                        </Button>
+                                        <Button icon="sap-icon://upload" text="Cargar excel"
+                                            press="onOpenCargaExcel">
+                                            <customData>
+                                                <core:CustomData
+                                                    key="tipoCarga"
+                                                    value="direcciones" />
+                                            </customData>
+                                        </Button>
+                                        <Button icon="sap-icon://download"
+                                            text="Descargar plantilla" press="onDescargarPlantilla">
+                                            <customData>
+                                                <core:CustomData
+                                                    key="tipoPlantilla"
+                                                    value="direcciones" />
+                                            </customData>
+                                        </Button>
+                                        <Button icon="sap-icon://delete" text="Eliminar"
+                                            press="onEliminarDireccion" />
+                                    </OverflowToolbar>
+                                </headerToolbar>
+
+                                <columns>
+                                    <Column id="colIdCecoDir">
+                                        <Text id="txtIdCecoDir" />
+                                    </Column>
+
+                                    <Column id="colCalle">
+                                        <Text text="Calle" />
+                                    </Column>
+
+                                    <Column id="colColonia">
+                                        <Text text="Colonia" />
+                                    </Column>
+
+                                    <Column id="colPoblacion">
+                                        <Text text="Población" />
+                                    </Column>
+
+                                    <Column id="colCP">
+                                        <Text text="Código Postal" />
+                                    </Column>
+
+                                    <Column id="colRegion">
+                                        <Text text="Región" />
+                                    </Column>
+
+                                    <Column id="colPais">
+                                        <Text text="País" />
+                                    </Column>
+
+                                    <Column
+                                        hAlign="Center">
+                                        <Text text="" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{Direccion>centro}" />
+                                            <Text text="{Direccion>calle}" />
+                                            <Text text="{Direccion>colonia}" />
+                                            <Text text="{Direccion>poblacion}" />
+                                            <Text text="{Direccion>codigoPostal}" />
+                                            <Text text="{Direccion>region}" />
+                                            <Text text="{Direccion>pais}" />
+                                            <Button icon="sap-icon://edit" press="onOpenAgregarDireccion">
+                                                <customData>
+                                                    <core:CustomData
+                                                        key="action"
+                                                        value="editar" />
+                                                </customData>
+                                            </Button>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </Panel>
+                    </IconTabFilter>
+
+
+                    <IconTabFilter id="itfControl" text="Control / Bloqueo" key="control">
+                        <Panel width="auto" class="sapUiSmallMarginTop">
+                            <Table
+                                id="tableBloqueos"
+                                items="{Bloqueo>/}"
+                                mode="MultiSelect"
+                                noDataText="No hay registros."
+                                contextualWidth="500px"
+                                popinLayout="GridSmall">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <Title text="Control / Bloqueos" level="H2" />
+                                        <ToolbarSpacer />
+                                        <Button icon="sap-icon://add" text="Agregar control/bloqueo"
+                                            press="onOpenAgregarBloqueo">
+                                            <customData>
+                                                <core:CustomData
+                                                    key="tipoCarga"
+                                                    value="bloqueos" />
+                                            </customData>
+                                        </Button>
+                                        <Button icon="sap-icon://upload" text="Cargar excel"
+                                            press="onOpenCargaExcel">
+                                            <customData>
+                                                <core:CustomData
+                                                    key="tipoCarga"
+                                                    value="bloqueos" />
+                                            </customData>
+                                        </Button>
+                                        <Button icon="sap-icon://download"
+                                            text="Descargar plantilla" press="onDescargarPlantilla">
+                                            <customData>
+                                                <core:CustomData
+                                                    key="tipoPlantilla"
+                                                    value="bloqueos" />
+                                            </customData>
+                                        </Button>
+                                        <Button icon="sap-icon://delete" text="Eliminar"
+                                            press="onEliminarBloqueo" />
+                                    </OverflowToolbar>
+                                </headerToolbar>
+
+                                <columns>
+                                    <Column id="colIdCecoCtrl" width="130px">
+                                        <Text id="txtIdCecoCtrl" />
+                                    </Column>
+
+                                    <Column id="colCostPrimR" width="140px">
+                                        <Text text="Costes Primarios Reales" />
+                                    </Column>
+
+                                    <Column
+                                        id="colCostPrimP"
+                                        popinDisplay="Inline" width="140px">
+                                        <Text text="Costes Primarios Planificados" />
+                                    </Column>
+
+                                    <Column id="colCostSecR" width="160px">
+                                        <Text text="Costes Secundarios Reales" />
+                                    </Column>
+
+                                    <Column
+                                        id="colCostSecP"
+                                        popinDisplay="Inline" width="170px">
+                                        <Text text="Costes Secundarios Planificados" />
+                                    </Column>
+
+                                    <Column id="colIngresosR">
+                                        <Text text="Ingresos Reales" />
+                                    </Column>
+
+                                    <Column
+                                        id="colIngresosP"
+                                        popinDisplay="Inline" width="150px">
+                                        <Text text="Ingresos Planificados" />
+                                    </Column>
+
+                                    <Column id="colComprometido">
+                                        <Text text="Comprometido" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{Bloqueo>centro}" />
+
+                                            <CheckBox
+                                                selected="{
+                                                    path: 'Bloqueo>costesPrimariosReales',
+                                                    formatter: '.formatter.xToBoolean'
+                                                }"/>
+
+                                            <CheckBox
+                                                selected="{
+                                                    path: 'Bloqueo>costesPrimariosPlanificados',
+                                                    formatter: '.formatter.xToBoolean'
+                                                }"/>
+
+                                            <CheckBox
+                                                selected="{
+                                                    path: 'Bloqueo>costesSecundariosReales',
+                                                    formatter: '.formatter.xToBoolean'
+                                                }"/>
+
+                                            <CheckBox
+                                                selected="{
+                                                    path: 'Bloqueo>costesSecundariosPlanificados',
+                                                    formatter: '.formatter.xToBoolean'
+                                                }"/>
+
+                                            <CheckBox
+                                                selected="{
+                                                    path: 'Bloqueo>ingresosReales',
+                                                    formatter: '.formatter.xToBoolean'
+                                                }"/>
+
+                                            <CheckBox
+                                                selected="{
+                                                    path: 'Bloqueo>ingresosPlanificados',
+                                                    formatter: '.formatter.xToBoolean'
+                                                }"/>
+
+                                            <CheckBox
+                                                selected="{
+                                                    path: 'Bloqueo>comprometido',
+                                                    formatter: '.formatter.xToBoolean'
+                                                }"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </Panel>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button type="Accept" text="Crear Centros" press="onCrearCentros">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

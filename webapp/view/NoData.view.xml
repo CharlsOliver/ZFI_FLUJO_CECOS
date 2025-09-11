@@ -1,0 +1,18 @@
+<mvc:View 
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+	controllerName="creacionflujocecos.controller.NoData">
+
+	<MessagePage
+		id="messagePage"
+		title="Detalle de centro"
+		text="Sin datos"
+		icon="{sap-icon://product}"
+		description="Seleccione un centro de la lista para visualizar su detalle.">
+		<buttons>
+			<Button text="Crear nueva solicitud" tooltip="Crear nueva solicitud" press="onNuevaSolicitud"/>
+		</buttons>
+	</MessagePage>
+
+</mvc:View>

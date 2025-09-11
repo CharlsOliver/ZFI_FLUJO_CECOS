@@ -1,0 +1,54 @@
+<mvc:View controllerName="creacionflujocecos.controller.Master"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page 
+        id="masterPage" 
+        title="Solicitudes">
+        <headerContent>
+            <Button 
+                icon="sap-icon://refresh"
+                press="onLoadSolicitudes"
+                tooltip="Recargar lista"/>
+        </headerContent>
+        <content>
+            <List
+                id="centrosList"
+                mode="SingleSelectMaster"
+                noDataText="No hay registros"
+                growing="true"
+                growingThreshold="10"
+                itemPress="onItemPress"
+                items="{Solicitudes>/}">
+                <items>
+                    <ObjectListItem
+                        type="Active"
+                        title="{Solicitudes>Id}">
+                        <firstStatus>
+                            <ObjectStatus
+                                text="{
+                                    path: 'Solicitudes>Status',
+                                    formatter: '.formatter.formatStatusText'
+                                }"
+                                state="{
+                                    path: 'Solicitudes>Status',
+                                    formatter: '.formatter.formatStatusState'
+                                }"/>
+                        </firstStatus>
+                        <secondStatus>
+                            <ObjectStatus
+                                text="{
+                                    path: 'Solicitudes>Fecha', 
+                                    formatter: '.formatter.formatDateShort'
+                                }"/>
+                        </secondStatus>
+                        <attributes>
+                            <ObjectAttribute text="{Solicitudes>Nombre}"/>
+                            <ObjectAttribute text="{Solicitudes>Desc_flow}"/>
+                            <ObjectAttribute text="{Solicitudes>Desc_proc}"/>
+                        </attributes>
+                    </ObjectListItem>
+                </items>
+            </List>
+        </content>
+    </Page>
+</mvc:View>

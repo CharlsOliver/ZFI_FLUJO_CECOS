@@ -1,0 +1,90 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Dialog
+        id="dAgregarRegistro"
+        title="Agregar registro"
+        contentWidth="650px">
+        <content>
+            <VBox>
+                <f:SimpleForm
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    title="Datos básicos"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="Centro de costo" id="lblInputCeco" />
+                        <Input id="inptCeco" type="Number"/>
+
+                        <Label text="Descripción" />
+                        <Input id="inptDescripcion"/>
+
+                        <Label text="Usuario" />
+                        <ComboBox showSecondaryValues= "true" id="cboxUsuario" items="{ path: 'Usuario>/' }">
+                            <core:ListItem key="{Usuario>Valor}" text="{Usuario>Descripcion}" additionalText="{Usuario>Valor}"/>
+                        </ComboBox>
+
+                        <Label text="Responsable" />
+                        <ComboBox showSecondaryValues= "true" id="cboxResponsable" items="{ path: 'Usuario>/' }">
+                            <core:ListItem key="{Usuario>Valor}" text="{Usuario>Descripcion}" additionalText="{Usuario>Valor}"/>
+                        </ComboBox>
+
+                        <Label text="Departamento" />
+                        <Input id="inptDepartamento"  />
+
+                        <Label text="Clase CeCo" />
+                        <ComboBox showSecondaryValues= "true" id="cboxClase" items="{ path: 'Clase>/' }">
+                            <core:ListItem key="{Clase>Valor}" text="{Clase>Descripcion}" additionalText="{Clase>Valor}"/>
+                        </ComboBox>
+
+                        <Label text="Area jerarquica" />
+                        <ComboBox showSecondaryValues= "true" id="cboxAreaJerarquica" items="{ path: 'AreaJerarquica>/' }">
+                            <core:ListItem key="{AreaJerarquica>Valor}" text="{AreaJerarquica>Descripcion}" additionalText="{AreaJerarquica>Valor}"/>
+                        </ComboBox>
+
+                        <Label text="Sociedad" />
+                        <ComboBox showSecondaryValues= "true" id="cboxSociedad" items="{ path: 'Sociedad>/' }">
+                            <core:ListItem key="{Sociedad>Valor}" text="{Sociedad>Descripcion}" additionalText="{Sociedad>Valor}"/>
+                        </ComboBox>
+
+                        <Label text="Area funcional" />
+                        <ComboBox showSecondaryValues= "true" id="cboxAreaFuncional" items="{ path: 'AreaFuncional>/' }">
+                            <core:ListItem key="{AreaFuncional>Valor}" text="{AreaFuncional>Descripcion}" additionalText="{AreaFuncional>Valor}"/>
+                        </ComboBox>
+
+                        <Label text="Moneda" />
+                        <ComboBox showSecondaryValues= "true" id="cboxMoneda" items="{ path: 'Moneda>/' }">
+                            <core:ListItem key="{Moneda>Valor}" text="{Moneda>Descripcion}" additionalText="{Moneda>Valor}"/>
+                        </ComboBox>
+
+                        <Label text="Centro de Beneficio" />
+                        <ComboBox showSecondaryValues= "true" id="cboxCentroBeneficio" items="{ path: 'CentroBeneficio>/' }">
+                            <core:ListItem key="{CentroBeneficio>Valor}" text="{CentroBeneficio>Descripcion}" additionalText="{CentroBeneficio>Valor}"/>
+                        </ComboBox>
+
+                        <Label text="Derivar a CeGe" />
+                        <Input id="inptCege" />
+
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <buttons>
+            <Button id="btnAceptar" type="Accept" text="Agregar" press="onAgregarRegistro" />
+            <Button id="btnCerrarDialog" text="Cerrar" press="onCerrarAgregarRegistro" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

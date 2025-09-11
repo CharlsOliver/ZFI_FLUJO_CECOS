@@ -1,0 +1,76 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Dialog
+        id="dAgregarDireccion"
+        title="Agregar dirección"
+        contentWidth="650px">
+        <content>
+            <VBox>
+                <f:SimpleForm
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    title="Dirección"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="Centro de costo" />
+                        <Select id="inptCentroDir"
+                            items="{Centro>/}">
+                            <items>
+                                <core:Item text="{Centro>centro}" key="{Centro>centro}" />
+                            </items>
+                        </Select>
+
+                        <Label text="Calle" />
+                        <Input id="inptCalle"/>
+
+                        <Label text="Colonia" />
+                        <Input id="inptColonia"/>
+
+                        <Label text="Población" />
+                        <Input id="inptPoblacion"/>
+
+                        <Label text="Codigo Postal" />
+                        <Input id="inptCodigoPostal" type="Number"/>
+
+                        <Label text="Región" />
+                        <ComboBox id="slctRegion"
+                            showSecondaryValues= "true"
+                            items="{Region>/}">
+                            <items>
+                                <core:ListItem text="{Region>Descripcion}" key="{Region>Valor}" additionalText="{Region>Valor}"/>
+                            </items>
+                        </ComboBox>
+
+                        <Label text="País" />
+                        <ComboBox id="slctPais"
+                            showSecondaryValues= "true"
+                            items="{Pais>/}">
+                            <items>
+                                <core:ListItem text="{Pais>Descripcion}" key="{Pais>Valor}" additionalText="{Pais>Valor}"/>
+                            </items>
+                        </ComboBox>
+
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+        </content>
+        <buttons>
+            <Button id="btnAgregarDireccion" type="Accept" text="Agregar" press="onAgregarDireccion" />
+            <Button id="btnCerrarDialogDireccion" text="Cerrar" press="onCerrarAgregarDireccion" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

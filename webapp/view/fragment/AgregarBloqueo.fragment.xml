@@ -1,0 +1,71 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Dialog
+        id="dAgregarBloqueo"
+        title="Agregar control/bloqueo"
+        contentWidth="650px">
+        <content>
+            <VBox>
+                <f:SimpleForm
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    title="Control / Bloqueo"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false">
+                    <f:content>
+
+                        <Label text="Centro de costo" id="lblInputCentro" />
+                        <Select id="inptCentroBloq"
+                            items="{Centro>/}">
+                            <items>
+                                <core:Item text="{Centro>centro}" key="{Centro>centro}" />
+                            </items>
+                        </Select>
+
+                        <core:Title text="Reales" />
+                        <VBox>
+                            <CheckBox id="chkRealesPrimarios" class="sapUiSmallMarginEnd"
+                                text="Costes Primarios" />
+                            <CheckBox id="chkRealesSecundarios" class="sapUiSmallMarginEnd"
+                                text="Costes Secundarios" />
+                            <CheckBox id="chkRealesIngresos" text="Ingresos" />
+                        </VBox>
+
+                        <core:Title text="Planificados" />
+                        <VBox>
+                            <CheckBox id="chkPlanPrimarios" class="sapUiSmallMarginEnd"
+                                text="Costes Primarios" />
+                            <CheckBox id="chkPlanSecundarios" class="sapUiSmallMarginEnd"
+                                text="Costes Secundarios" />
+                            <CheckBox id="chkPlanIngresos" text="Ingresos" />
+                        </VBox>
+
+                        <core:Title text="Actualizar comprometido" />
+                        <VBox>
+                            <CheckBox id="chkComprometido" text="Comprometido" />
+                        </VBox>
+
+                    </f:content>
+                </f:SimpleForm>
+
+            </VBox>
+        </content>
+        <buttons>
+            <Button id="btnAgregarBloqueo" type="Accept" text="Agregar" press="onAgregarBloqueo" />
+            <Button id="btnCerrarDialogBloqueo" text="Cerrar" press="onCerrarAgregarBloqueo" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,315 @@
+<mvc:View
+    controllerName="creacionflujocecos.controller.Detail"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page
+        id="detailPage"
+        title="Detalle de Solicitud">
+        <headerContent>
+			<Button text="Crear nueva solicitud" icon="sap-icon://add-document" tooltip="Crear nueva solicitud" press="onNuevaSolicitud"/>
+            <Button text="Modificar solicitud" icon="sap-icon://request" tooltip="Modificar solicitud" press="onModificarSolicitud" visible="{= ${Solicitudes>Status} === 'RECHAZADA' }"/>
+		</headerContent>
+        <content>
+            <ObjectHeader
+                title="{Solicitudes>Id}">
+                <statuses>
+                    <ObjectStatus
+                        text="{
+                            path: 'Solicitudes>Status',
+                            formatter: '.formatter.formatStatusText'
+                        }"
+                        state="{
+                            path: 'Solicitudes>Status',
+                            formatter: '.formatter.formatStatusState'
+                        }"/>
+                    <ObjectStatus
+                        text="{
+                            path: 'Solicitudes>Fecha', 
+                            formatter: '.formatter.formatDateShort'
+                        }"/>
+                </statuses>
+                <ObjectAttribute text="{Solicitudes>Desc_flow}" />
+                <ObjectAttribute text="{Solicitudes>Desc_proc}" />
+                <ObjectAttribute text="{Solicitudes>Nombre}" />
+                <ObjectAttribute title="Comentarios" text="{Solicitudes>Comentario}" visible="{= ${Solicitudes>Status} === 'RECHAZADA' }"/>
+            </ObjectHeader>
+            <IconTabBar
+                id="idIconTabBarDetail"
+                expandable="false"
+                selectedKey="datos">
+                <items>
+                    <IconTabFilter text="Datos básicos" key="datos">
+                        <Table
+                            id="tableCentrosDetail"
+                            items="{Centro>/}"
+                            noDataText="No hay registros."
+                            contextualWidth="300px"
+                            popinLayout="GridSmall"
+                            alternateRowColors="true">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <Title id="tableTitleDetail" level="H2" />
+                                    <ToolbarSpacer />
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column id="colIdCecoDetail" width="130px">
+                                    <Text id="txtColIdCecoDetail" />
+                                </Column>
+
+                                <Column id="colDescripcionDetail" width="160px">
+                                    <Text text="Descripción" />
+                                </Column>
+
+                                <Column id="colUsuarioDetail" width="130px">
+                                    <Text text="Usuario" />
+                                </Column>
+
+                                <Column id="colResponsableDetail" width="130px">
+                                    <Text text="Responsable" />
+                                </Column>
+
+                                <Column id="colDepartamentoDetail">
+                                    <Text text="Departamento" />
+                                </Column>
+
+                                <Column id="colSociedadDetail" width="80px">
+                                    <Text text="Sociedad" />
+                                </Column>
+
+                                <Column id="colJerarquiaDetail">
+                                    <Text text="Area Jerarquia" />
+                                </Column>
+
+                                <Column
+                                    id="colClaseDetail"
+                                    demandPopin="true"
+                                    minScreenWidth="Tablet"
+                                    popinDisplay="Inline">
+                                    <Text text="Clase CeCo" />
+                                </Column>
+
+                                <Column
+                                    id="colFuncionalDetail"
+                                    demandPopin="true"
+                                    minScreenWidth="Tablet"
+                                    popinDisplay="Inline">
+                                    <Text text="Area Funcional" />
+                                </Column>
+
+                                <Column
+                                    id="colMonedaDetail"
+                                    demandPopin="true"
+                                    minScreenWidth="Tablet"
+                                    popinDisplay="Inline">
+                                    <Text text="Moneda" />
+                                </Column>
+
+                                <Column
+                                    id="colCebeDetail"
+                                    demandPopin="true"
+                                    minScreenWidth="Tablet"
+                                    popinDisplay="Inline">
+                                    <header>
+                                        <Text text="Centro de Beneficio" />
+                                    </header>
+                                </Column>
+
+                                <Column
+                                    id="colDerivaCebeDetail"
+                                    demandPopin="true"
+                                    minScreenWidth="Tablet"
+                                    popinDisplay="Inline">
+                                    <header>
+                                        <Text text="Derivar a CeGe" />
+                                    </header>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem vAlign="Middle">
+                                    <cells>
+                                        <Text text="{Centro>Centro}" />
+                                        <Text text="{Centro>Descripcion}" />
+                                        <Text text="{Centro>Usuario}" />
+                                        <Text text="{Centro>Responsable}" />
+                                        <Text text="{Centro>Depto}" />
+                                        <Text text="{Centro>Sociedad}" />
+                                        <Text text="{Centro>AreaJerar}" />
+                                        <Text text="{Centro>Clasececo}" />
+                                        <Text text="{Centro>AreaFunc}" />
+                                        <Text text="{Centro>Moneda}" />
+                                        <Text text="{Centro>Cebe}" />
+                                        <Text text="{Centro>Derivarcege}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+
+                    <IconTabFilter text="Direcciones" key="direcciones">
+                        <Table
+                            id="tableDireccionesDetail"
+                            items="{Direccion>/}"
+                            noDataText="No hay registros."
+                            alternateRowColors="true">
+                            <columns>
+                                <Column id="colIdCecoDirDetail">
+                                    <Text id="txtIdCecoDirDetail" />
+                                </Column>
+
+                                <Column id="colCalleDetail">
+                                    <Text text="Calle" />
+                                </Column>
+
+                                <Column id="colColoniaDetail">
+                                    <Text text="Colonia" />
+                                </Column>
+
+                                <Column id="colPoblacionDetail">
+                                    <Text text="Población" />
+                                </Column>
+
+                                <Column id="colCPDetail">
+                                    <Text text="Código Postal" />
+                                </Column>
+
+                                <Column id="colRegionDetail">
+                                    <Text text="Región" />
+                                </Column>
+
+                                <Column id="colPaisDetail">
+                                    <Text text="País" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{Direccion>centro}" />
+                                        <Text text="{Direccion>calle}" />
+                                        <Text text="{Direccion>colonia}" />
+                                        <Text text="{Direccion>poblacion}" />
+                                        <Text text="{Direccion>codigoPostal}" />
+                                        <Text text="{Direccion>region}" />
+                                        <Text text="{Direccion>pais}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+
+                    <IconTabFilter id="itfControlDetail" text="Control / Bloqueo" key="control">
+                        <Table
+                            id="tableBloqueosDetail"
+                            items="{Bloqueo>/}"
+                            noDataText="No hay registros."
+                            popinLayout="GridSmall"
+                            alternateRowColors="true">
+                            <columns>
+                                <Column id="colIdCecoCtrlDetail">
+                                    <Text id="txtIdCecoCtrlDetail" />
+                                </Column>
+
+                                <Column id="colCostPrimRDetail">
+                                    <Text text="Costes Primarios Reales" />
+                                </Column>
+
+                                <Column
+                                    id="colCostPrimPDetail"
+                                    popinDisplay="Inline">
+                                    <Text text="Costes Primarios Planificados" />
+                                </Column>
+
+                                <Column id="colCostSecRDetail" >
+                                    <Text text="Costes Secundarios Reales" />
+                                </Column>
+
+                                <Column
+                                    id="colCostSecPDetail"
+                                    popinDisplay="Inline" >
+                                    <Text text="Costes Secundarios Planificados" />
+                                </Column>
+
+                                <Column id="colIngresosRDetail">
+                                    <Text text="Ingresos Reales" />
+                                </Column>
+
+                                <Column
+                                    id="colIngresosPDetail"
+                                    popinDisplay="Inline" >
+                                    <Text text="Ingresos Planificados" />
+                                </Column>
+
+                                <Column id="colComprometidoDetail">
+                                    <Text text="Comprometido" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{Bloqueo>centro}" />
+
+                                        <CheckBox
+                                            enabled="false"
+                                            selected="{
+                                                path: 'Bloqueo>costesPrimariosReales',
+                                                formatter: '.formatter.xToBoolean'
+                                            }"/>
+
+                                        <CheckBox
+                                            enabled="false"
+                                            selected="{
+                                                path: 'Bloqueo>costesPrimariosPlanificados',
+                                                formatter: '.formatter.xToBoolean'
+                                            }"/>
+
+                                        <CheckBox
+                                            enabled="false"
+                                            selected="{
+                                                path: 'Bloqueo>costesSecundariosReales',
+                                                formatter: '.formatter.xToBoolean'
+                                            }"/>
+
+                                        <CheckBox
+                                            enabled="false"
+                                            selected="{
+                                                path: 'Bloqueo>costesSecundariosPlanificados',
+                                                formatter: '.formatter.xToBoolean'
+                                            }"/>
+
+                                        <CheckBox
+                                            enabled="false"
+                                            selected="{
+                                                path: 'Bloqueo>ingresosReales',
+                                                formatter: '.formatter.xToBoolean'
+                                            }"/>
+
+                                        <CheckBox
+                                            enabled="false"
+                                            selected="{
+                                                path: 'Bloqueo>ingresosPlanificados',
+                                                formatter: '.formatter.xToBoolean'
+                                            }"/>
+
+                                        <CheckBox
+                                            enabled="false"
+                                            selected="{
+                                                path: 'Bloqueo>comprometido',
+                                                formatter: '.formatter.xToBoolean'
+                                            }"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

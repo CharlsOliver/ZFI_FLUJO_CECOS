@@ -1,0 +1,338 @@
+{
+  "_version": "1.17.0",
+  "sap.app": {
+    "id": "creacionflujocecos",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.16.5",
+      "toolsId": "095182a3-19a3-4ef9-932f-90999d098936"
+    },
+    "dataSources": {
+      "ZSERV_CBG_SHELP_SRV": {
+        "uri": "/sap/opu/odata/sap/ZSERV_CBG_SHELP_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/ZSERV_CBG_SHELP_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ZSERV_CBG_CREATE_SRV": {
+        "uri": "/sap/opu/odata/sap/ZSERV_CBG_CREATE_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/ZSERV_CBG_CREATE_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ZSERV_CBG_CREATEREJECT_SRV": {
+        "uri": "/sap/opu/odata/sap/ZSERV_CBG_CREATEREJECT_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/ZSERV_CBG_CREATEREJECT_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ZSERV_CBG_GET_BLOQDIR_SRV": {
+        "uri": "/sap/opu/odata/sap/ZSERV_CBG_GET_BLOQDIR_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/ZSERV_CBG_GET_BLOQDIR_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.71.19",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "creacionflujocecos.i18n.i18n"
+        }
+      },
+      "ZSERV_CBG_SHELP_SRV": {
+        "dataSource": "ZSERV_CBG_SHELP_SRV",
+        "preload": true,
+        "settings": {}
+      },
+      "ZSERV_CBG_CREATE_SRV": {
+        "dataSource": "ZSERV_CBG_CREATE_SRV",
+        "preload": true,
+        "settings": {}
+      },
+      "ZSERV_CBG_CREATEREJECT_SRV": {
+        "dataSource": "ZSERV_CBG_CREATEREJECT_SRV",
+        "preload": true,
+        "settings": {}
+      },
+      "ZSERV_CBG_GET_BLOQDIR_SRV": {
+        "dataSource": "ZSERV_CBG_GET_BLOQDIR_SRV",
+        "preload": true,
+        "settings": {}
+      },
+      "Proceso": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Consecutivo": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Flujo": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Centro": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Direccion": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Bloqueo": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Usuario": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Clase": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "AreaJerarquica": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Sociedad": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Division": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "AreaFuncional": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Moneda": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "CentroBeneficio": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Responsable": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Region": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Pais": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      },
+      "Solicitudes": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "creacionflujocecos.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RouteMaster",
+          "pattern": "",
+          "target": [
+            "TargetMain",
+            "TargetMaster"
+          ]
+        },
+        {
+          "name": "RouteDetail",
+          "pattern": "Detail/{centro}",
+          "target": [
+            "TargetMain",
+            "TargetDetail"
+          ]
+        },
+        {
+          "name": "RouteEmpty",
+          "pattern": "NoData",
+          "target": [
+            "TargetMain",
+            "TargetNoData"
+          ]
+        },
+        {
+          "name": "RouteCrearSolicitud",
+          "pattern": "Solicitud",
+          "target": [
+            "TargetSolicitud"
+          ]
+        },
+        {
+          "name": "RouteSolicitud",
+          "pattern": "Solicitud/{solicitud}",
+          "target": [
+            "TargetMain",
+            "TargetSolicitud"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetMain": {
+          "viewType": "XML",
+          "viewName": "Main",
+          "viewId": "MainView",
+          "controlId": "app",
+          "controlAggregation": "pages",
+          "clearAggregation": false,
+          "viewLevel": 0
+        },
+        "TargetMaster": {
+          "parent": "TargetMain",
+          "viewType": "XML",
+          "viewName": "Master",
+          "viewId": "MasterView",
+          "controlId": "splitApp",
+          "controlAggregation": "masterPages",
+          "viewLevel": 1
+        },
+        "TargetDetail": {
+          "parent": "TargetMain",
+          "viewType": "XML",
+          "viewName": "Detail",
+          "viewId": "DetailView",
+          "controlId": "splitApp",
+          "controlAggregation": "detailPages",
+          "transition": "slide",
+          "clearAggregation": true,
+          "viewLevel": 2
+        },
+        "TargetSolicitud": {
+          "viewType": "XML",
+          "viewName": "Solicitud",
+          "viewId": "SolicitudView",
+          "controlId": "app",
+          "controlAggregation": "pages",
+          "transition": "slide",
+          "clearAggregation": false,
+          "viewLevel": 1
+        },
+        "TargetModificarSolicitud": {
+          "viewType": "XML",
+          "viewName": "ModificarSolicitud",
+          "viewId": "ModificarSolicitudView",
+          "controlId": "app",
+          "controlAggregation": "pages",
+          "transition": "slide",
+          "clearAggregation": false,
+          "viewLevel": 1
+        },
+        "TargetNoData": {
+          "parent": "TargetMain",
+          "viewType": "XML",
+          "viewName": "NoData",
+          "viewId": "NoDataView",
+          "controlId": "splitApp",
+          "controlAggregation": "detailPages",
+          "transition": "slide",
+          "clearAggregation": true,
+          "viewLevel": 2
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "creacionflujocecos.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}
