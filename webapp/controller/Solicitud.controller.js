@@ -364,7 +364,9 @@ sap.ui.define([
                 // Mapeo de controles por ID
                 const campos = {
                     lblInputCeco: this.byId(viewId + "--lblInputCeco"),
+                    lblCboxCeco: this.byId(viewId + "--lblCboxCeco"),
                     inptCeco: this.byId(viewId + "--inptCeco"),
+                    cboxCeco: this.byId(viewId + "--cboxCeco"),
                     inptDescripcion: this.byId(viewId + "--inptDescripcion"),
                     cboxUsuario: this.byId(viewId + "--cboxUsuario"),
                     cboxResponsable: this.byId(viewId + "--cboxResponsable"),
@@ -384,15 +386,19 @@ sap.ui.define([
                     if (control.setSelectedKey) control.setSelectedKey(null);
                 });
 
+                // Alias de procesos (heredan misma config base)
                 const alias = { "0004": "0001", "0005": "0002", "0006": "0003" };
                 const p = alias[proceso] || proceso;
 
-                // Configuración de campos por proceso base
+                // ¿Procesos alternos que usan cboxCeco?
+                const isAlt = proceso === "0004" || proceso === "0005" || proceso === "0006";
+
+                // Configuración base por proceso (SIN inptCeco/cboxCeco; se agrega abajo según el proceso original)
                 const configProceso = {
                     "0001": {
                         label: this.txtCentroCosto,
                         visible: [
-                            "inptCeco", "inptDescripcion", "cboxUsuario", "cboxResponsable", "inptDepartamento",
+                            "inptDescripcion", "cboxUsuario", "cboxResponsable", "inptDepartamento",
                             "cboxClase", "cboxAreaJerarquica", "cboxSociedad", "cboxAreaFuncional",
                             "cboxMoneda", "cboxCentroBeneficio", "inptCege"
                         ]
@@ -400,29 +406,34 @@ sap.ui.define([
                     "0002": {
                         label: this.txtCentroBeneficio,
                         visible: [
-                            "inptCeco", "inptDescripcion", "cboxUsuario", "cboxResponsable",
+                            "inptDescripcion", "cboxUsuario", "cboxResponsable",
                             "inptDepartamento", "cboxAreaJerarquica"
                         ]
                     },
                     "0003": {
                         label: this.txtCentroGestor,
                         visible: [
-                            "inptCeco", "inptDescripcion", "cboxUsuario", "cboxResponsable",
+                            "inptDescripcion", "cboxUsuario", "cboxResponsable",
                             "cboxAreaJerarquica", "cboxSociedad"
                         ]
                     }
                 };
 
-                // Usa la config (con fallback minimal)
-                const config = configProceso[p] || { label: "", visible: [] };
-                campos.lblInputCeco.setText(config.label);
+                // Usa la config (con fallback minimal) y añade el control CECO correcto
+                const base = configProceso[p] || { label: "", visible: [] };
+                const visibleFinal = [...base.visible, isAlt ? "cboxCeco" : "inptCeco"];
+
+                // Label
+                campos.lblInputCeco.setText(base.label);
+                campos.lblCboxCeco.setText(base.label);
 
                 // Aplicar visibilidad
                 Object.entries(campos).forEach(([id, control]) => {
-                    if (id !== "lblInputCeco" && control.setVisible) {
-                        control.setVisible(config.visible.includes(id));
+                    if (id !== "lblInputCeco" && id !== "lblCboxCeco" && control && control.setVisible) {
+                        control.setVisible(visibleFinal.includes(id));
                     }
                 });
+
 
                 // Si es edición, llenar campos visibles
                 if (action === "editar" && oContextData) {
@@ -509,6 +520,7 @@ sap.ui.define([
                 const proceso = this.slctProceso.getSelectedKey();
                 const viewId = this.getView().createId("dAgregarRegistro");
                 const inptCeco = this.byId(viewId + "--inptCeco");
+                const cboxCeco = this.byId(viewId + "--cboxCeco");
                 const inptDescripcion = this.byId(viewId + "--inptDescripcion");
                 const cboxUsuario = this.byId(viewId + "--cboxUsuario");
                 const cboxResponsable = this.byId(viewId + "--cboxResponsable");
@@ -521,7 +533,14 @@ sap.ui.define([
                 const cboxCentroBeneficio = this.byId(viewId + "--cboxCentroBeneficio");
                 const inptCege = this.byId(viewId + "--inptCege");
 
-                const ceco = inptCeco ? inptCeco.getValue() : null;
+                let ceco = null;
+
+                if (proceso === "0001" || proceso === "0002" || proceso === "0003") {
+                    ceco = inptCeco ? inptCeco.getValue() : null;
+                } else if (proceso === "0004" || proceso === "0005" || proceso === "0006") {
+                    ceco = cboxCeco ? cboxCeco.getSelectedKey() : null;
+                }
+                
                 const descripcion = inptDescripcion ? inptDescripcion.getValue() : null;
                 const usuario = cboxUsuario ? cboxUsuario.getSelectedKey() : null;
                 const responsable = cboxResponsable ? cboxResponsable.getSelectedKey() : null;
@@ -579,7 +598,7 @@ sap.ui.define([
                     };
                 }
 
-                if (proceso === "0003"  || proceso === "0006") {
+                if (proceso === "0003" || proceso === "0006") {
                     if (!areaJerarquica) return MessageToast.show("Por favor, seleccione un Área Jerárquica");
                     if (!sociedad) return MessageToast.show("Por favor, seleccione una Sociedad");
 

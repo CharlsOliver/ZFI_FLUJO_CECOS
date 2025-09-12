@@ -29,6 +29,11 @@
                         <Label text="Centro de costo" id="lblInputCeco" />
                         <Input id="inptCeco" type="Number"/>
 
+                        <Label text="Centro de costo" id="lblCboxCeco" />
+                        <ComboBox showSecondaryValues= "true" id="cboxCeco">
+                            <core:ListItem/>
+                        </ComboBox>
+
                         <Label text="Descripción" />
                         <Input id="inptDescripcion"/>
 
