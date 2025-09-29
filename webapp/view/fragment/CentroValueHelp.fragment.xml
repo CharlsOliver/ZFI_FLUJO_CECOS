@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog 
+        id="vhCentro" 
+        title="Selecciona Centro de Costo"
+        noDataText="No hay centros"
+        search=".onCentroSearch" 
+        confirm=".onCentroConfirm" 
+        cancel=".onCentroCancel" 
+        growing="true" 
+        growingThreshold="20" 
+        rememberSelections="true"
+        items="{
+            path: 'ZSERV_CBG_DATA_SRV>/InputSet'
+        }">
+
+        <StandardListItem 
+            title="{ZSERV_CBG_DATA_SRV>Centro}" 
+            description="{ZSERV_CBG_DATA_SRV>Descripcion}"/>
+    </SelectDialog>
+</core:FragmentDefinition>

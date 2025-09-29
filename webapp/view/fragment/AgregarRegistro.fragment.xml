@@ -30,58 +30,93 @@
                         <Input id="inptCeco" type="Number"/>
 
                         <Label text="Centro de costo" id="lblCboxCeco" />
-                        <ComboBox showSecondaryValues= "true" id="cboxCeco">
-                            <core:ListItem/>
-                        </ComboBox>
+                        <Input
+                            id="cboxCeco"
+                            type="Text"
+                            showValueHelp="true"
+                            valueHelpOnly="true"
+                            valueHelpRequest=".openCentroHelpRequest" />
 
                         <Label text="Descripción" />
                         <Input id="inptDescripcion"/>
 
                         <Label text="Usuario" />
-                        <ComboBox showSecondaryValues= "true" id="cboxUsuario" items="{ path: 'Usuario>/' }">
-                            <core:ListItem key="{Usuario>Valor}" text="{Usuario>Descripcion}" additionalText="{Usuario>Valor}"/>
-                        </ComboBox>
+                        <Input
+                            id="cboxUsuario"
+                            type="Text"
+                            showValueHelp="true"
+                            valueHelpOnly="true"
+                            valueHelpRequest=".openCatalogHelpRequest">
+                            <customData>
+                                <core:CustomData key="vhCampoId" value="5" />
+                            </customData>
+                        </Input>
 
                         <Label text="Responsable" />
-                        <ComboBox showSecondaryValues= "true" id="cboxResponsable" items="{ path: 'Usuario>/' }">
-                            <core:ListItem key="{Usuario>Valor}" text="{Usuario>Descripcion}" additionalText="{Usuario>Valor}"/>
-                        </ComboBox>
+                        <Input
+                            id="cboxResponsable"
+                            type="Text"
+                            showValueHelp="true"
+                            valueHelpOnly="true"
+                            valueHelpRequest=".openCatalogHelpRequest">
+                            <customData>
+                                <core:CustomData key="vhCampoId" value="5" />
+                            </customData>
+                        </Input>
 
                         <Label text="Departamento" />
                         <Input id="inptDepartamento"  />
 
                         <Label text="Clase CeCo" />
-                        <ComboBox showSecondaryValues= "true" id="cboxClase" items="{ path: 'Clase>/' }">
+                        <ComboBox showSecondaryValues= "true" filterSecondaryValues= "true" id="cboxClase" items="{ path: 'Clase>/' }">
                             <core:ListItem key="{Clase>Valor}" text="{Clase>Descripcion}" additionalText="{Clase>Valor}"/>
                         </ComboBox>
 
                         <Label text="Area jerarquica" />
-                        <ComboBox showSecondaryValues= "true" id="cboxAreaJerarquica" items="{ path: 'AreaJerarquica>/' }">
-                            <core:ListItem key="{AreaJerarquica>Valor}" text="{AreaJerarquica>Descripcion}" additionalText="{AreaJerarquica>Valor}"/>
-                        </ComboBox>
+                        <Input
+                            id="cboxAreaJerarquica"
+                            type="Text"
+                            showValueHelp="true"
+                            valueHelpOnly="true"
+                            valueHelpRequest=".openCatalogHelpRequest">
+                            <customData>
+                                <core:CustomData key="vhCampoId" value="7" />
+                            </customData>
+                        </Input>
 
                         <Label text="Sociedad" />
-                        <ComboBox showSecondaryValues= "true" id="cboxSociedad" items="{ path: 'Sociedad>/' }">
-                            <core:ListItem key="{Sociedad>Valor}" text="{Sociedad>Descripcion}" additionalText="{Sociedad>Valor}"/>
-                        </ComboBox>
+                        <Input
+                            id="cboxSociedad"
+                            type="Text"
+                            showValueHelp="true"
+                            valueHelpOnly="true"
+                            valueHelpRequest=".openCatalogHelpRequest" >
+                            <customData>
+                                <core:CustomData key="vhCampoId" value="8" />
+                            </customData>
+                        </Input>
 
                         <Label text="Area funcional" />
-                        <ComboBox showSecondaryValues= "true" id="cboxAreaFuncional" items="{ path: 'AreaFuncional>/' }">
+                        <ComboBox showSecondaryValues= "true" filterSecondaryValues= "true" id="cboxAreaFuncional" items="{ path: 'AreaFuncional>/' }">
                             <core:ListItem key="{AreaFuncional>Valor}" text="{AreaFuncional>Descripcion}" additionalText="{AreaFuncional>Valor}"/>
                         </ComboBox>
 
                         <Label text="Moneda" />
-                        <ComboBox showSecondaryValues= "true" id="cboxMoneda" items="{ path: 'Moneda>/' }">
+                        <ComboBox showSecondaryValues= "true" filterSecondaryValues= "true" id="cboxMoneda" items="{ path: 'Moneda>/' }">
                             <core:ListItem key="{Moneda>Valor}" text="{Moneda>Descripcion}" additionalText="{Moneda>Valor}"/>
                         </ComboBox>
 
                         <Label text="Centro de Beneficio" />
-                        <ComboBox showSecondaryValues= "true" id="cboxCentroBeneficio" items="{ path: 'CentroBeneficio>/' }">
-                            <core:ListItem key="{CentroBeneficio>Valor}" text="{CentroBeneficio>Descripcion}" additionalText="{CentroBeneficio>Valor}"/>
-                        </ComboBox>
-
-                        <Label text="Derivar a CeGe" />
-                        <Input id="inptCege" />
+                        <Input
+                            id="cboxCentroBeneficio"
+                            type="Text"
+                            showValueHelp="true"
+                            valueHelpOnly="true"
+                            valueHelpRequest=".openCatalogHelpRequest" >
+                            <customData>
+                                <core:CustomData key="vhCampoId" value="12" />
+                            </customData>
+                        </Input>
 
                     </f:content>
                 </f:SimpleForm>

@@ -168,16 +168,6 @@
                                     </Column>
 
                                     <Column
-                                        id="colDerivaCebe"
-                                        demandPopin="true"
-                                        minScreenWidth="Tablet"
-                                        popinDisplay="Inline">
-                                        <header>
-                                            <Text text="Derivar a CeGe" />
-                                        </header>
-                                    </Column>
-
-                                    <Column
                                         hAlign="Center">
                                         <Text text="" />
                                     </Column>
@@ -196,7 +186,6 @@
                                             <Text text="{Centro>areaFuncional}" />
                                             <Text text="{Centro>moneda}" />
                                             <Text text="{Centro>cEBE}" />
-                                            <Text text="{Centro>derivarACeGe}" />
                                             <Button icon="sap-icon://edit" press="onOpenAgregarRegistro">
                                                 <customData>
                                                     <core:CustomData

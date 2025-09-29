@@ -48,7 +48,7 @@
 
                         <Label text="Región" />
                         <ComboBox id="slctRegion"
-                            showSecondaryValues= "true"
+                            showSecondaryValues= "true" filterSecondaryValues= "true"
                             items="{Region>/}">
                             <items>
                                 <core:ListItem text="{Region>Descripcion}" key="{Region>Valor}" additionalText="{Region>Valor}"/>
@@ -57,7 +57,7 @@
 
                         <Label text="País" />
                         <ComboBox id="slctPais"
-                            showSecondaryValues= "true"
+                            showSecondaryValues= "true" filterSecondaryValues= "true"
                             items="{Pais>/}">
                             <items>
                                 <core:ListItem text="{Pais>Descripcion}" key="{Pais>Valor}" additionalText="{Pais>Valor}"/>

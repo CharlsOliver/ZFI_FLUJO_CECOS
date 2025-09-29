@@ -23,7 +23,7 @@ sap.ui.define([
             formatter: formatter,
 
             onInit: function () {
-                this.txtCentroCosto = "Centros de Costo";
+                this.txtCentroCosto = "Centro de Costo";
                 this.txtCentroBeneficio = "Centro de Beneficio";
                 this.txtCentroGestor = "Centro Gestor";
 
@@ -43,7 +43,6 @@ sap.ui.define([
                 this.colMoneda = this.getView().byId("colMoneda");
                 this.colCebe = this.getView().byId("colCebe");
                 this.inptSolicitante = this.getView().byId("inptSolicitante");
-                this.colDerivaCebe = this.getView().byId("colDerivaCebe");
                 this.itfControl = this.getView().byId("itfControl");
                 this.slctProceso = this.getView().byId("slctProceso");
                 this.inptConsecutivo = this.getView().byId("inptConsecutivo");
@@ -56,6 +55,9 @@ sap.ui.define([
                 this.ZSERV_CBG_SHELP_SRV = this.getOwnerComponent().getModel("ZSERV_CBG_SHELP_SRV");
                 this.ZSERV_CBG_CREATE_SRV = this.getOwnerComponent().getModel("ZSERV_CBG_CREATE_SRV");
                 this.ZSERV_CBG_GET_BLOQDIR_SRV = this.getOwnerComponent().getModel("ZSERV_CBG_GET_BLOQDIR_SRV");
+                this.ZSERV_CBG_GETCECO_SRV = this.getOwnerComponent().getModel("ZSERV_CBG_GETCECO_SRV");
+                this.ZSERV_CBG_GETCEGE_SRV = this.getOwnerComponent().getModel("ZSERV_CBG_GETCEGE_SRV");
+                this.ZSERV_CBG_GETCEBE_SRV = this.getOwnerComponent().getModel("ZSERV_CBG_GETCEBE_SRV");
 
                 this.mProceso = this.getOwnerComponent().getModel("Proceso");
                 this.mConsecutivo = this.getOwnerComponent().getModel("Consecutivo");
@@ -142,7 +144,7 @@ sap.ui.define([
 
                 for (var i = 1; i <= 16; i++) {
                     // Saltar si es 2, o si es 3 y modification = true
-                    if (i === 2 || (i === 3 && modification)) {
+                    if (i === 2 || i === 5 || i === 7 || i === 8 || i === 12 || (i === 3 && modification)) {
                         continue;
                     }
                     const aFilter = [];
@@ -167,14 +169,14 @@ sap.ui.define([
                     const aAllResponse = aResultados.flat();
                     const procesos = aAllResponse.filter(item => item.Campo === "1");
                     const flujos = aAllResponse.filter(item => item.Campo === "4");
-                    const usuarios = aAllResponse.filter(item => item.Campo === "5");
+                    //const usuarios = aAllResponse.filter(item => item.Campo === "5");
                     const clases = aAllResponse.filter(item => item.Campo === "6");
-                    const areas_jerarquicas = aAllResponse.filter(item => item.Campo === "7");
-                    const sociedades = aAllResponse.filter(item => item.Campo === "8");
+                    //const areas_jerarquicas = aAllResponse.filter(item => item.Campo === "7");
+                    //const sociedades = aAllResponse.filter(item => item.Campo === "8");
                     const divisiones = aAllResponse.filter(item => item.Campo === "9");
                     const areas_funcionales = aAllResponse.filter(item => item.Campo === "10");
                     const monedas = aAllResponse.filter(item => item.Campo === "11");
-                    const centros_beneficio = aAllResponse.filter(item => item.Campo === "12");
+                    //const centros_beneficio = aAllResponse.filter(item => item.Campo === "12");
                     const regiones = aAllResponse.filter(item => item.Campo === "13");
                     const paises = aAllResponse.filter(item => item.Campo === "14");
 
@@ -185,14 +187,14 @@ sap.ui.define([
 
                     that.mProceso.setData(procesos);
                     that.mFlujo.setData(flujos);
-                    that.mUsuario.setData(usuarios);
+                    //that.mUsuario.setData(usuarios);
                     that.mClase.setData(clases);
-                    that.mAreaJerarquica.setData(areas_jerarquicas);
-                    that.mSociedad.setData(sociedades);
+                    //that.mAreaJerarquica.setData(areas_jerarquicas);
+                    //that.mSociedad.setData(sociedades);
                     that.mDivision.setData(divisiones);
                     that.mAreaFuncional.setData(areas_funcionales);
                     that.mMoneda.setData(monedas);
-                    that.mCentroBeneficio.setData(centros_beneficio);
+                    //that.mCentroBeneficio.setData(centros_beneficio);
                     that.mRegion.setData(regiones);
                     that.mPais.setData(paises);
 
@@ -214,7 +216,6 @@ sap.ui.define([
                                 areaFuncional: item.AreaFunc,
                                 moneda: item.Moneda,
                                 cEBE: item.Cebe,
-                                derivarACeGe: item.Derivarcege
                             };
                         }));
                     }
@@ -274,7 +275,6 @@ sap.ui.define([
                         colFuncional: true,
                         colMoneda: true,
                         colCebe: true,
-                        colDerivaCebe: true,
                         itfControl: true
                     },
                     "0002": {
@@ -288,7 +288,6 @@ sap.ui.define([
                         colFuncional: false,
                         colMoneda: false,
                         colCebe: false,
-                        colDerivaCebe: false,
                         itfControl: false
                     },
                     "0003": {
@@ -302,7 +301,6 @@ sap.ui.define([
                         colFuncional: false,
                         colMoneda: false,
                         colCebe: false,
-                        colDerivaCebe: false,
                         itfControl: false
                     }
                 };
@@ -377,11 +375,11 @@ sap.ui.define([
                     cboxAreaFuncional: this.byId(viewId + "--cboxAreaFuncional"),
                     cboxMoneda: this.byId(viewId + "--cboxMoneda"),
                     cboxCentroBeneficio: this.byId(viewId + "--cboxCentroBeneficio"),
-                    inptCege: this.byId(viewId + "--inptCege")
                 };
 
                 // Limpiar campos
                 Object.entries(campos).forEach(([id, control]) => {
+                    if (!control) return;
                     if (control.setValue) control.setValue(null);
                     if (control.setSelectedKey) control.setSelectedKey(null);
                 });
@@ -400,7 +398,7 @@ sap.ui.define([
                         visible: [
                             "inptDescripcion", "cboxUsuario", "cboxResponsable", "inptDepartamento",
                             "cboxClase", "cboxAreaJerarquica", "cboxSociedad", "cboxAreaFuncional",
-                            "cboxMoneda", "cboxCentroBeneficio", "inptCege"
+                            "cboxMoneda", "cboxCentroBeneficio"
                         ]
                     },
                     "0002": {
@@ -423,44 +421,49 @@ sap.ui.define([
                 const base = configProceso[p] || { label: "", visible: [] };
                 const visibleFinal = [...base.visible, isAlt ? "cboxCeco" : "inptCeco"];
 
-                // Label
-                campos.lblInputCeco.setText(base.label);
-                campos.lblCboxCeco.setText(base.label);
+                // Labels: texto y visibilidad (uno u otro según el tipo de CECO)
+                if (campos.lblInputCeco) {
+                    campos.lblInputCeco.setText(base.label);
+                    campos.lblInputCeco.setVisible(!isAlt);
+                }
+                if (campos.lblCboxCeco) {
+                    campos.lblCboxCeco.setText(base.label);
+                    campos.lblCboxCeco.setVisible(isAlt);
+                }
 
-                // Aplicar visibilidad
+                // Aplicar visibilidad a campos (labels ya se manejaron arriba)
                 Object.entries(campos).forEach(([id, control]) => {
-                    if (id !== "lblInputCeco" && id !== "lblCboxCeco" && control && control.setVisible) {
-                        control.setVisible(visibleFinal.includes(id));
-                    }
+                    if (!control || id === "lblInputCeco" || id === "lblCboxCeco") return;
+                    if (control.setVisible) control.setVisible(visibleFinal.includes(id));
                 });
-
 
                 // Si es edición, llenar campos visibles
                 if (action === "editar" && oContextData) {
                     const mapeoCampos = {
                         inptCeco: { key: "centro", metodo: "setValue" },
+                        cboxCeco: { key: "centro", metodo: "setValue" },
                         inptDescripcion: { key: "denominacion", metodo: "setValue" },
-                        cboxUsuario: { key: "usuario", metodo: "setSelectedKey" },
-                        cboxResponsable: { key: "responsable", metodo: "setSelectedKey" },
+                        cboxUsuario: { key: "usuario", metodo: "setValue" },
+                        cboxResponsable: { key: "responsable", metodo: "setValue" },
                         inptDepartamento: { key: "departamento", metodo: "setValue" },
                         cboxClase: { key: "claseCeCo", metodo: "setSelectedKey" },
-                        cboxAreaJerarquica: { key: "areaJerarquia", metodo: "setSelectedKey" },
-                        cboxSociedad: { key: "sociedad", metodo: "setSelectedKey" },
+                        cboxAreaJerarquica: { key: "areaJerarquia", metodo: "setValue" },
+                        cboxSociedad: { key: "sociedad", metodo: "setValue" },
                         cboxAreaFuncional: { key: "areaFuncional", metodo: "setSelectedKey" },
                         cboxMoneda: { key: "moneda", metodo: "setSelectedKey" },
-                        cboxCentroBeneficio: { key: "cEBE", metodo: "setSelectedKey" },
-                        inptCege: { key: "derivarACeGe", metodo: "setValue" }
+                        cboxCentroBeneficio: { key: "cEBE", metodo: "setValue" }
                     };
 
-                    config.visible.forEach(id => {
+                    visibleFinal.forEach((id) => {
                         const control = campos[id];
                         const campo = mapeoCampos[id];
+                        if (!control || !campo) return;
 
-                        if (campo && oContextData.hasOwnProperty(campo.key)) {
+                        if (Object.prototype.hasOwnProperty.call(oContextData, campo.key)) {
                             const valor = oContextData[campo.key];
-                            if (campo.metodo === "setSelectedKey") {
+                            if (campo.metodo === "setSelectedKey" && control.setSelectedKey) {
                                 control.setSelectedKey(valor);
-                            } else if (campo.metodo === "setValue") {
+                            } else if (campo.metodo === "setValue" && control.setValue) {
                                 control.setValue(valor);
                             }
                         }
@@ -531,27 +534,25 @@ sap.ui.define([
                 const cboxAreaFuncional = this.byId(viewId + "--cboxAreaFuncional");
                 const cboxMoneda = this.byId(viewId + "--cboxMoneda");
                 const cboxCentroBeneficio = this.byId(viewId + "--cboxCentroBeneficio");
-                const inptCege = this.byId(viewId + "--inptCege");
 
                 let ceco = null;
 
                 if (proceso === "0001" || proceso === "0002" || proceso === "0003") {
                     ceco = inptCeco ? inptCeco.getValue() : null;
                 } else if (proceso === "0004" || proceso === "0005" || proceso === "0006") {
-                    ceco = cboxCeco ? cboxCeco.getSelectedKey() : null;
+                    ceco = cboxCeco ? cboxCeco.getValue() : null;
                 }
-                
+
                 const descripcion = inptDescripcion ? inptDescripcion.getValue() : null;
-                const usuario = cboxUsuario ? cboxUsuario.getSelectedKey() : null;
-                const responsable = cboxResponsable ? cboxResponsable.getSelectedKey() : null;
+                const usuario = cboxUsuario ? cboxUsuario.getValue() : null;
+                const responsable = cboxResponsable ? cboxResponsable.getValue() : null;
                 const departamento = inptDepartamento ? inptDepartamento.getValue() : null;
                 const clase = cboxClase ? cboxClase.getSelectedKey() : null;
-                const areaJerarquica = cboxAreaJerarquica ? cboxAreaJerarquica.getSelectedKey() : null;
-                const sociedad = cboxSociedad ? cboxSociedad.getSelectedKey() : null;
+                const areaJerarquica = cboxAreaJerarquica ? cboxAreaJerarquica.getValue() : null;
+                const sociedad = cboxSociedad ? cboxSociedad.getValue() : null;
                 const areaFuncional = cboxAreaFuncional ? cboxAreaFuncional.getSelectedKey() : null;
                 const moneda = cboxMoneda ? cboxMoneda.getSelectedKey() : null;
-                const centroBeneficio = cboxCentroBeneficio ? cboxCentroBeneficio.getSelectedKey() : null;
-                const cege = inptCege ? inptCege.getValue() : null;
+                const centroBeneficio = cboxCentroBeneficio ? cboxCentroBeneficio.getValue() : null;
 
                 if (!ceco) return MessageToast.show("Por favor, llene el campo CECO");
                 if (!descripcion) return MessageToast.show("Por favor, llene el campo Descripción");
@@ -566,7 +567,6 @@ sap.ui.define([
                     if (!areaFuncional) return MessageToast.show("Por favor, seleccione un Área Funcional");
                     if (!moneda) return MessageToast.show("Por favor, seleccione una Moneda");
                     if (!centroBeneficio) return MessageToast.show("Por favor, seleccione un Centro de Beneficio");
-                    if (!cege) return MessageToast.show("Por favor, llene el campo CEGE");
 
                     return {
                         centro: parseInt(ceco),
@@ -579,8 +579,7 @@ sap.ui.define([
                         sociedad: parseInt(sociedad),
                         areaFuncional,
                         moneda,
-                        cEBE: parseInt(centroBeneficio),
-                        derivarACeGe: parseInt(cege)
+                        cEBE: parseInt(centroBeneficio)
                     };
                 }
 
@@ -707,6 +706,8 @@ sap.ui.define([
                     if (index !== -1) {
                         currentData[index] = oNewCentro;
                         this.mCentro.setData(currentData);
+                        this._agregarDireccion();
+                        this._agregarBloqueo();
                         this.onCerrarAgregarRegistro();
                         return;
                     } else {
@@ -724,8 +725,47 @@ sap.ui.define([
                 // Agregar nuevo registro
                 currentData.push(oNewCentro);
                 this.mCentro.setData(currentData);
+                this._agregarDireccion();
+                this._agregarBloqueo();
                 this.onCerrarAgregarRegistro();
             },
+
+            _agregarDireccion: function () {
+                const dir = this._direccionPendiente;
+                if (!dir) return;
+
+                let a = this.mDireccion.getData();
+                if (!Array.isArray(a)) a = [];
+
+                // Normaliza mínimamente para evitar falsos duplicados por tipo/espacios
+                const key = String(dir.centro).trim();
+                const exists = a.some(d => String(d.centro).trim() === key);
+
+                if (!exists) {
+                    this.mDireccion.setData([...a, dir]);
+                }
+                // Limpia la pendiente (evita reinsertar en la siguiente llamada)
+                this._direccionPendiente = null;
+            },
+
+            _agregarBloqueo: function () {
+                const bloq = this._bloqueoPendiente;
+                if (!bloq) return;
+
+                let a = this.mBloqueo.getData();
+                if (!Array.isArray(a)) a = [];
+
+                // Normaliza mínimamente para evitar falsos duplicados por tipo/espacios
+                const key = String(bloq.centro).trim();
+                const exists = a.some(d => String(d.centro).trim() === key);
+
+                if (!exists) {
+                    this.mBloqueo.setData([...a, bloq]);
+                }
+                // Limpia la pendiente (evita reinsertar en la siguiente llamada)
+                this._bloqueoPendiente = null;
+            },
+
 
             onCerrarAgregarRegistro: function () {
                 this._oDialogAgregarRegistro.close();
@@ -873,12 +913,39 @@ sap.ui.define([
                     onClose: function (oAction) {
                         if (oAction === "Sí") {
                             const aData = that.mCentro.getData();
+
+                            // === NUEVO: claves 'centro' a eliminar (normalizadas) ===
+                            const centrosAEliminar = new Set(
+                                selectedItems.map(sel => {
+                                    const obj = sel.getBindingContext("Centro").getObject();
+                                    return String(obj?.centro ?? "").trim();
+                                })
+                            );
+
+                            // === Tu eliminación original en mCentro (por referencia) ===
                             const updatedData = aData.filter(item => {
                                 return !selectedItems.some(sel => sel.getBindingContext("Centro").getObject() === item);
                             });
 
+                            // === NUEVO: limpiar mDireccion por 'centro' ===
+                            if (that.mDireccion) {
+                                let dir = that.mDireccion.getData();
+                                if (!Array.isArray(dir)) dir = [];
+                                const dirFiltrado = dir.filter(d => !centrosAEliminar.has(String(d?.centro ?? "").trim()));
+                                that.mDireccion.setData(dirFiltrado);
+                            }
+
+                            // === NUEVO: limpiar mBloqueo por 'centro' ===
+                            if (that.mBloqueo) {
+                                let bloq = that.mBloqueo.getData();
+                                if (!Array.isArray(bloq)) bloq = [];
+                                const bloqFiltrado = bloq.filter(b => !centrosAEliminar.has(String(b?.centro ?? "").trim()));
+                                that.mBloqueo.setData(bloqFiltrado);
+                            }
+
+                            // === Aplicar cambios en mCentro y limpiar selección ===
                             that.mCentro.setData(updatedData);
-                            that.tableCentros.removeSelections(true); // 🔹 Limpia la selección
+                            that.tableCentros.removeSelections(true);
                             MessageToast.show("Registros eliminados exitosamente.");
                         }
                     }
@@ -1168,7 +1235,6 @@ sap.ui.define([
                             AreaFunc: item.areaFuncional || "",
                             Moneda: item.moneda || "",
                             Cebe: isNaN(item.cEBE) ? "" : item.cEBE?.toString(),
-                            Derivarcege: item.derivarACeGe?.toString() || ""
                         }));
                         break
                     case "0002" || "0005":
@@ -1356,6 +1422,248 @@ sap.ui.define([
                         console.log(error)
                     }
                 });
+            },
+
+            openCentroHelpRequest: function () {
+                const oView = this.getView();
+                const proceso = this.slctProceso.getSelectedKey();
+
+                if (!this._oCentroVH) {
+                    this._oCentroVH = sap.ui.xmlfragment(
+                        oView.getId(),
+                        "creacionflujocecos.view.fragment.CentroValueHelp",
+                        this
+                    );
+                    oView.addDependent(this._oCentroVH);
+                }
+
+                // Map de títulos por proceso
+                const TITLES = {
+                    "0004": `Seleccione un ${this.txtCentroCosto}`,
+                    "0005": `Seleccione un ${this.txtCentroBeneficio}`,
+                    "0006": `Seleccione un ${this.txtCentroGestor}`,
+                    "default": "Seleccione un registro"
+                };
+
+                // Map de Id por proceso
+                const IDS = {
+                    "0004": 1,
+                    "0005": 2,
+                    "0006": 3,
+                    "default": 1
+                };
+
+                // Setear título dinámico
+                const oDialog = this._oCentroVH;
+                const sTitle = TITLES[proceso] || TITLES.default;
+                oDialog.setTitle(sTitle);
+
+                // Setear Id dinámico
+                this._centroFilterId = IDS[proceso] || IDS.default;
+
+                // Aplicar filtro
+                const oBinding = oDialog.getBinding("items");
+                if (oBinding) {
+                    oBinding.filter([
+                        new Filter("Id", FilterOperator.EQ, this._centroFilterId)
+                    ]);
+                }
+
+                oDialog.open();
+            },
+
+            onCentroConfirm: function (oEvent) {
+                const oItem = oEvent.getParameter("selectedItem");
+                if (!oItem) return;
+
+                const sCentro = oItem.getTitle();
+                const proceso = this.slctProceso.getSelectedKey();
+                const that = this;
+                const viewId = this.getView().createId("dAgregarRegistro");
+
+                // Helper: obtener controles por id corto
+                const by = (shortId) => that.byId(`${viewId}--${shortId}`);
+
+                // Helper: setear value/selectedKey según tipo de dato que definamos en el mapping
+                const apply = (ctrl, kind, val) => {
+                    if (ctrl && typeof ctrl[kind] === "function") ctrl[kind](val ?? "");
+                };
+
+                const CONFIG = {
+                    "0004": {
+                        model: this.ZSERV_CBG_GETCECO_SRV,
+                        entitySet: "CecoSet",
+                        filterKey: "Cecosto",
+                        labelText: this.txtCentroCosto,
+                        // [controlId, methodName, fieldName]
+                        fields: [
+                            ["cboxCeco", "setValue", null],
+                            ["inptDescripcion", "setValue", "Descripcion"],
+                            ["cboxUsuario", "setValue", "Usuario"],
+                            ["cboxResponsable", "setValue", "Responsable"],
+                            ["inptDepartamento", "setValue", "Depto"],
+                            ["cboxClase", "setSelectedKey", "Clasececo"],
+                            ["cboxAreaJerarquica", "setValue", "AreaJerar"],
+                            ["cboxSociedad", "setValue", "Sociedad"],
+                            ["cboxAreaFuncional", "setSelectedKey", "AreaFunc"],
+                            ["cboxMoneda", "setSelectedKey", "Moneda"],
+                            ["cboxCentroBeneficio", "setValue", "Cebe"]
+                        ]
+                    },
+                    "0005": {
+                        model: this.ZSERV_CBG_GETCEBE_SRV,
+                        entitySet: "CebeSet",
+                        filterKey: "Cebeneficio",
+                        labelText: this.txtCentroBeneficio,
+                        fields: [
+                            ["cboxCeco", "setValue", null],
+                            ["inptDescripcion", "setValue", "Descripcion"],
+                            ["cboxUsuario", "setValue", "Usuario"],
+                            ["cboxResponsable", "setValue", "Responsable"],
+                            ["inptDepartamento", "setValue", "Departamento"],
+                            ["cboxAreaJerarquica", "setValue", "AreaJerar"]
+                        ]
+                    },
+                    "0006": {
+                        model: this.ZSERV_CBG_GETCEGE_SRV,
+                        entitySet: "CegesSet",
+                        filterKey: "Cegestor",
+                        labelText: this.txtCentroGestor,
+                        fields: [
+                            ["cboxCeco", "setValue", null],
+                            ["inptDescripcion", "setValue", "Descripcion"],
+                            ["cboxUsuario", "setValue", "Usuario"],
+                            ["cboxResponsable", "setValue", "Responsable"],
+                            ["cboxAreaJerarquica", "setValue", "AreaJerar"],
+                            ["cboxSociedad", "setValue", "Sociedad"]
+                        ]
+                    }
+                };
+
+                const cfg = CONFIG[proceso];
+                if (!cfg || !cfg.model) return;
+
+                cfg.model.read(`/${cfg.entitySet}`, {
+                    filters: [new Filter(cfg.filterKey, FilterOperator.EQ, sCentro)],
+                    urlParameters: { format: "json" },
+                    success: function (response) {
+                        const item = response?.results?.[0];
+                        if (!item) {
+                            MessageToast.show(`No se pudieron obtener los datos del ${cfg.labelText}.`);
+                            return;
+                        }
+                        console.log(item)
+                        cfg.fields.forEach(([id, method, field]) => {
+                            const ctrl = by(id);
+                            const value = (field === null) ? sCentro : (field ? item[field] : "");
+                            apply(ctrl, method, value);
+                        });
+
+                        let direccion = {
+                            centro: sCentro,
+                            calle: item["STRAS"],
+                            colonia: item["NAME4"],
+                            poblacion: item["ORT01"],
+                            codigoPostal: item["PSTLZ"],
+                            region: item["REGIO"],
+                            pais: item["LAND1"]
+                        }
+
+                        let bloqueos = {
+                            centro: sCentro,
+                            costesPrimariosReales : item["C_BKZKP"],
+                            costesSecundariosReales : item["C_BKZKS"],
+                            ingresosReales : item["C_BKZER"],
+                            costesPrimariosPlanificados : item["C_PKZKP"],
+                            costesSecundariosPlanificados : item["C_PKZKS"],
+                            ingresosPlanificados : item["C_PKZER"],
+                            comprometido : item["C_BKZOB"]
+                        }
+
+                        that._direccionPendiente = direccion;
+                        that._bloqueoPendiente = bloqueos;
+                    },
+                    error: function (err) {
+                        console.error(err);
+                    }
+                });
+            },
+
+
+            onCentroSearch: function (oEvent) {
+                const sQuery = oEvent.getParameter("value") || "";
+                const aTextFilters = sQuery ? [
+                    new Filter("Id", FilterOperator.EQ, this._centroFilterId),
+                    new Filter("Centro", FilterOperator.Contains, sQuery),
+                    new Filter("Descripcion", FilterOperator.Contains, sQuery)
+                ] : [];
+
+                const oBinding = oEvent.getSource().getBinding("items");
+                oBinding.filter(aTextFilters);
+            },
+
+            openCatalogHelpRequest: function (oEvent) {
+                const oView = this.getView();
+                const oSrc = oEvent.getSource();
+
+                // Guarda la referencia del campo que disparó el VH (más cómodo que el ID)
+                this._fieldSource = oSrc;
+
+                // Lee el ID de catálogo desde CustomData (UI5)
+                const sId = oSrc.data("vhCampoId") || "";
+                this._catalogoFilterId = sId;
+
+                // Crea el fragment una sola vez
+                if (!this._oCatalogoVH) {
+                    this._oCatalogoVH = sap.ui.xmlfragment(
+                        oView.getId(),
+                        "creacionflujocecos.view.fragment.CatalogValueHelp",
+                        this
+                    );
+                    oView.addDependent(this._oCatalogoVH);
+                }
+
+                // Aplica/limpia filtro al binding de ítems del SelectDialog
+                const oBinding = this._oCatalogoVH.getBinding("items");
+                if (oBinding) {
+                    if (sId) {
+                        oBinding.filter([
+                            new sap.ui.model.Filter("Campo", sap.ui.model.FilterOperator.EQ, sId)
+                        ]);
+                    } else {
+                        oBinding.filter([]);
+                    }
+                }
+
+                this._oCatalogoVH.open();
+            },
+
+            onCatalogoSearch: function (oEvent) {
+                const sQuery = oEvent.getParameter("value") || "";
+                const aFilters = [];
+
+                if (this._catalogoFilterId) {
+                    aFilters.push(new Filter("Campo", FilterOperator.EQ, this._catalogoFilterId));
+                }
+
+                if (sQuery) {
+                    aFilters.push(new Filter("Valor", FilterOperator.Contains, sQuery)),
+                        aFilters.push(new Filter("Descripcion", FilterOperator.Contains, sQuery))
+                }
+
+                oEvent.getSource().getBinding("items").filter(aFilters);
+            },
+
+            onCatalogoConfirm: function (oEvent) {
+                const oItem = oEvent.getParameter("selectedItem");
+                if (!oItem || !this._fieldSource) return;
+                const sValor = oItem.getTitle();
+                if (this._fieldSource.setValue) {
+                    this._fieldSource.setValue(sValor);
+                }
+
+                this._fieldSource = null;
             }
+
         });
     });

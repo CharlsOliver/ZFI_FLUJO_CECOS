@@ -51,6 +51,42 @@
           "localUri": "localService/ZSERV_CBG_GET_BLOQDIR_SRV/metadata.xml",
           "odataVersion": "2.0"
         }
+      },
+      "ZSERV_CBG_GETCECO_SRV": {
+        "uri": "/sap/opu/odata/sap/ZSERV_CBG_GETCECO_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/ZSERV_CBG_GETCECO_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ZSERV_CBG_DATA_SRV": {
+        "uri": "/sap/opu/odata/sap/ZSERV_CBG_DATA_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/ZSERV_CBG_DATA_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ZSERV_CBG_GETCEGE_SRV": {
+        "uri": "/sap/opu/odata/sap/ZSERV_CBG_GETCEGE_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/ZSERV_CBG_GETCEGE_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "ZSERV_CBG_GETCEBE_SRV": {
+        "uri": "/sap/opu/odata/sap/ZSERV_CBG_GETCEBE_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/ZSERV_CBG_GETCEBE_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
       }
     }
   },
@@ -113,6 +149,26 @@
       },
       "ZSERV_CBG_GET_BLOQDIR_SRV": {
         "dataSource": "ZSERV_CBG_GET_BLOQDIR_SRV",
+        "preload": true,
+        "settings": {}
+      },
+      "ZSERV_CBG_GETCECO_SRV": {
+        "dataSource": "ZSERV_CBG_GETCECO_SRV",
+        "preload": true,
+        "settings": {}
+      },
+      "ZSERV_CBG_DATA_SRV": {
+        "dataSource": "ZSERV_CBG_DATA_SRV",
+        "preload": true,
+        "settings": {}
+      },
+      "ZSERV_CBG_GETCEGE_SRV": {
+        "dataSource": "ZSERV_CBG_GETCEGE_SRV",
+        "preload": true,
+        "settings": {}
+      },
+      "ZSERV_CBG_GETCEBE_SRV": {
+        "dataSource": "ZSERV_CBG_GETCEBE_SRV",
         "preload": true,
         "settings": {}
       },
