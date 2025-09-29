@@ -1219,50 +1219,41 @@ sap.ui.define([
             },
 
             transformarCentros: function (arrayOriginal, proceso) {
-
-                let centros = [];
-                switch (proceso) {
-                    case "0001" || "0004":
-                        centros = arrayOriginal.map(item => ({
-                            Cecosto: item.centro?.toString() || "",
-                            Descripcion: item.denominacion || "",
-                            Usuario: item.usuario || "",
-                            Responsable: item.responsable || "",
-                            Depto: item.departamento || "",
-                            Clasececo: item.claseCeCo || "",
-                            AreaJerar: item.areaJerarquia?.toString() || "",
-                            Sociedad: item.sociedad?.toString() || "",
-                            AreaFunc: item.areaFuncional || "",
-                            Moneda: item.moneda || "",
-                            Cebe: isNaN(item.cEBE) ? "" : item.cEBE?.toString(),
-                        }));
-                        break
-                    case "0002" || "0005":
-                        centros = arrayOriginal.map(item => ({
-                            Cebeneficio: item.centro?.toString() || "",
-                            Descripcion: item.denominacion || "",
-                            Usuario: item.usuario || "",
-                            Responsable: item.responsable || "",
-                            Departamento: item.departamento || "",
-                            AreaJerar: item.areaJerarquia?.toString() || ""
-                        }));
-                        break
-                    case "0003" || "0006":
-                        centros = arrayOriginal.map(item => ({
-                            Cegestor: item.centro?.toString() || "",
-                            Descripcion: item.denominacion || "",
-                            Usuario: item.usuario || "",
-                            Responsable: item.responsable || "",
-                            AreaJerar: item.areaJerarquia?.toString() || "",
-                            Sociedad: item.sociedad?.toString() || "",
-                        }));
-                        break
-                    default:
-                        centros = []
-                        break
+                if (["0001", "0004"].includes(proceso)) {
+                    return arrayOriginal.map(item => ({
+                        Cecosto: item.centro?.toString() || "",
+                        Descripcion: item.denominacion || "",
+                        Usuario: item.usuario || "",
+                        Responsable: item.responsable || "",
+                        Depto: item.departamento || "",
+                        Clasececo: item.claseCeCo || "",
+                        AreaJerar: item.areaJerarquia?.toString() || "",
+                        Sociedad: item.sociedad?.toString() || "",
+                        AreaFunc: item.areaFuncional || "",
+                        Moneda: item.moneda || "",
+                        Cebe: isNaN(item.cEBE) ? "" : item.cEBE?.toString(),
+                    }));
+                } else if (["0002", "0005"].includes(proceso)) {
+                    return arrayOriginal.map(item => ({
+                        Cebeneficio: item.centro?.toString() || "",
+                        Descripcion: item.denominacion || "",
+                        Usuario: item.usuario || "",
+                        Responsable: item.responsable || "",
+                        Departamento: item.departamento || "",
+                        AreaJerar: item.areaJerarquia?.toString() || ""
+                    }));
+                } else if (["0003", "0006"].includes(proceso)) {
+                    return arrayOriginal.map(item => ({
+                        Cegestor: item.centro?.toString() || "",
+                        Descripcion: item.denominacion || "",
+                        Usuario: item.usuario || "",
+                        Responsable: item.responsable || "",
+                        AreaJerar: item.areaJerarquia?.toString() || "",
+                        Sociedad: item.sociedad?.toString() || "",
+                    }));
+                } else {
+                    return [];
                 }
-
-                return centros
             },
 
             transformarDirecciones: function (arrayOriginal) {
@@ -1571,13 +1562,13 @@ sap.ui.define([
 
                         let bloqueos = {
                             centro: sCentro,
-                            costesPrimariosReales : item["C_BKZKP"],
-                            costesSecundariosReales : item["C_BKZKS"],
-                            ingresosReales : item["C_BKZER"],
-                            costesPrimariosPlanificados : item["C_PKZKP"],
-                            costesSecundariosPlanificados : item["C_PKZKS"],
-                            ingresosPlanificados : item["C_PKZER"],
-                            comprometido : item["C_BKZOB"]
+                            costesPrimariosReales: item["C_BKZKP"],
+                            costesSecundariosReales: item["C_BKZKS"],
+                            ingresosReales: item["C_BKZER"],
+                            costesPrimariosPlanificados: item["C_PKZKP"],
+                            costesSecundariosPlanificados: item["C_PKZKS"],
+                            ingresosPlanificados: item["C_PKZER"],
+                            comprometido: item["C_BKZOB"]
                         }
 
                         that._direccionPendiente = direccion;
