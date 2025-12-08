@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog 
+        id="vhCatalog" 
+        title="Seleccione un registro"
+        noDataText="No hay registros"
+        search=".onCatalogoSearch" 
+        confirm=".onCatalogoConfirm" 
+        cancel=".onCatalogoCancel" 
+        growing="true" 
+        growingThreshold="20" 
+        rememberSelections="true"
+        items="{
+            path: 'ZSERV_CBG_SHELP_SRV>/InputSet'
+        }">
+
+        <StandardListItem 
+            title="{ZSERV_CBG_SHELP_SRV>Valor}" 
+            description="{ZSERV_CBG_SHELP_SRV>Descripcion}"/>
+    </SelectDialog>
+</core:FragmentDefinition>
